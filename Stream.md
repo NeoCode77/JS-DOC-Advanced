@@ -83,5 +83,17 @@
  readFile.on("error",(err) => {
     console.log("stream error : " + err);
  })
- 
  ```
+ 
+ **C. Pipe**
+ 
+ >pipe digunakan untuk mengalirkan data dari readable ke writeable.
+
+```javascript
+let fs = require("fs");
+
+let fileRead = fs.createReadStream("file1.txt");
+let fileWrite = fs.createWriteStream("file2.txt");
+
+fileRead.pipe(fileWrite);
+```
