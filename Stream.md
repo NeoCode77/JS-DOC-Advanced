@@ -97,3 +97,24 @@ let fileWrite = fs.createWriteStream("file2.txt");
 
 fileRead.pipe(fileWrite);
 ```
+
+**D. Transfrom**
+ 
+ >transform digunakan untuk memodifikasi data yang dialirkan dari readable ke writeable.
+
+```javascript
+let fs = require("fs");
+let { Transform } = require("stream");
+
+let fileRead = fs.createReadStream("file1.txt");
+let fileWrite = fs.createWriteStream("file2.txt");
+
+let modify = new Transform({
+    transform: function(chunks,encoding,calback){
+          let kapital = chunks.toString().toUpperCase();
+          callback( null , kapital );
+    });
+};
+
+fileRead.pipe(modify).pipe(fileWrite);
+```
