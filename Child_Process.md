@@ -67,3 +67,50 @@ let command = execFileSync( "./bash.sh" );
 console.log( command.toString() );
 
 ```
+
+**E. Spawn**
+
+>method asynchronous yang digunakan untuk melakukan command shell/bash dan menghasilkan stream.
+>untuk menjalankan spawn di os windows harus disertakan opsi *{ shell : true }*.
+
+```javascript
+// windows
+let { spawn } = require("child_process");
+
+let command = spawn( "dir", { shell : true });
+
+command.stdout.on("data",( chunks ) => {
+    console.log( chunks.toString() );
+});
+
+command.stderr.on("data",( chunks ) => {
+    console.log( chunks.toString() );
+});
+
+command.on("exit" , (code) => {
+    console.log( "program exit with code", code );
+});
+
+command.on("error" , ( err ) => {
+    console.log( err );
+});
+```
+
+**F. spawnSync**
+
+>method synchronous yang digunakan untuk melakukan command shell/bash dan menghasilkan stream.
+>untuk menjalankan spawn di os windows harus disertakan opsi *{ shell : true }*.
+
+```javascript
+let { spawnSync } = require("child_process");
+
+let command = spawnSync( "ls -l" );
+
+if( command.err ){
+    console.log( command.err.message );
+}else if( command.stderr.toString() ){
+    console.log( command.stderr.toString() );
+}else{
+    console.log( command.stdout.toString() );
+};
+```
